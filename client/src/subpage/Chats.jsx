@@ -47,33 +47,7 @@ function Chats() {
   return (
     <div>
       <div className="chat-container">
-        <header className="chat-header">
-          <h1>
-            <i className="fas fa-smile"></i> ChatWhat
-          </h1>
-          <a href="index.html" className="btn">
-            Leave Room
-          </a>
-        </header>
-        <main className="chat-main">
-          <div className="chat-sidebar">
-            <h3 className=" text-black">
-              <i className="fas fa-comments"></i> Room Name:
-            </h3>
-            <h2 className="text-blue-600" id="room-name">
-              JavaScript
-            </h2>
-            <h3 className="text-blue-600">
-              <i className="fas fa-users"></i> Users
-            </h3>
-            <ul id="users">
-              {/* <!-- <li>Arnav</li>
-          <li>Amon</li> 
-          <li>Kaustubh</li>
-          <li>Hitarth</li>
-           --> */}
-            </ul>
-          </div>
+        <main className="chat-main h-80">
           <div className="chat-messages"></div>
         </main>
         <div className="chat-form-container">
