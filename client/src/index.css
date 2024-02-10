@@ -6,6 +6,7 @@ body {
   background-color: #f1f1f2;
 }
 
+<<<<<<< HEAD
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -203,3 +204,13 @@ a {
     display: none;
   }
 }
+=======
+.card-img-top{
+
+  height:200px;
+}
+.card-title{
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+>>>>>>> 3998ce2d78c7d456c0f7fced91ae301d467d3414
