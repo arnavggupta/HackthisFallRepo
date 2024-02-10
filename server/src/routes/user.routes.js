@@ -1,38 +1,30 @@
-// routes.js
-import express from 'express';
 
-const router = express.Router();
+import { Router } from 'express';
 import user from "../models/user.model.js";
-
 import {setuser,getuser} from "../auth/authentication.js";
+import bcrypt from 'bcrypt';
+
+const router = Router();
 
 // Define your routes here
-router.get('/', (req, res) => {
-  res.send('Hello, this is the main route!');
-});
-
-router.get('/about', (req, res) => {
-  res.send('Welcome to the about page!');
-});
 
 router.post("/register",async(req,res)=>{
     try{
+        console.log(req.body);
     const passwords= req.body.password;
     const cpassword= req.body.confirm_password;
 
     if(passwords===cpassword){
-    const registername=new user({
-        Username:req.body.username,
-        Email:req.body.email,
-        Password:req.body.password,
-        ConfirmPassword:req.body.confirm_password,
+    const registername=await user.create({
+        username:req.body.username,
+        email:req.body.email,
+        password:req.body.password,
+        dob:req.body.dob
     })
-
-//  const tokengenerated= await registername.genratetoken();
-// console.log(tokengenerated);
-const usersave=await registername.save();
-
-res.render("login");
+    const usersave=await registername.save();
+    res.status(201).json({
+        data:"succesfully registered"
+    });
 
 }
 else{
@@ -46,30 +38,32 @@ else{
     }
 })
 
-router.post("/login",async(req,res)=>{
-
+router.post("/login",async(req,res,next)=>{
     try{
-const name=req.body.login_username;
-const password=req.body.login_password;
+        const name=req.body.login_username;
+        const password=req.body.login_password;
 
-const database=await user.findOne({name:name});
-const ismatch=bcrypt.compare(password,database.password);
+        const database=await user.findOne({username:name});
+        const ismatch=bcrypt.compare(password,database.password);
 
    
-if(ismatch){
+    if(ismatch){
     // res.render("home");
     const token = setuser(database);
     res.cookie("uid",token);
-    return res.redirect("/");
+    return res.status(200).json({
+        message:"you have logged in successfully",
+        token : token
+    });
 
-}
-else{
-    res.send("Error Invalid Credentials")
-}
+    }
+    else{
+        res.json({data:"Error Invalid Credentials"});
+    }
 
     }
     catch(e){
-res.send("ERROR Invalid Credentials ");
+        next(e);
     }
 })
 
