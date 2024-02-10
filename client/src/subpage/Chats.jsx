@@ -1,4 +1,4 @@
-// // import "./index.css";
+import "../../src/chat.css";
 // function Chat() {
 //   return (
 //     <div className="join-container">

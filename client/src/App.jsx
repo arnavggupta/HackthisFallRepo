@@ -1,20 +1,14 @@
-import { BrowserRouter, Outlet, Route, Routes } from "react-router-dom";
-import Home from "./Pages/Home";
-import Navbar from "./components/Navbar";
-import LoginPage from "./Pages/Login";
-import SignUpPage from "./Pages/SignUp";
-import Footer from "./components/Footer";
-import Crousels  from "./components/Crousels.jsx";
+import { Outlet } from "react-router-dom";
 
-import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js"  ;
+import Footer from "./components/Footer";
+
+import "../node_modules/bootstrap/dist/js/bootstrap.bundle.js";
 
 function App() {
   return (
     <div>
-   
-    
-    <Outlet />
-    <Footer></Footer>
+      <Outlet />
+      <Footer></Footer>
     </div>
   );
 }
