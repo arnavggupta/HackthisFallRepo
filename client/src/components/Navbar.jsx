@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Link, useNavigate } from "react-router-dom";
 import Button from "./Button";
 
@@ -23,10 +24,17 @@ function Navbar() {
         </div>
       </div>
       <div className="w-[38%] flex justify-end">
-        <button className="tracking-wide font-semibold text-lg m-2 px-2 rounded-xl bg-slate-200">
+        <button
+          onClick={() => navigate("/login")}
+          className="tracking-wide font-semibold text-lg m-2 px-2 rounded-xl
+         bg-slate-200"
+        >
           Login
         </button>
-        <button className="tracking-wide font-semibold text-lg m-2 px-2 rounded-xl bg-slate-200">
+        <button
+          onClick={() => navigate("/signup")}
+          className="tracking-wide font-semibold text-lg m-2 px-2 rounded-xl bg-slate-200"
+        >
           SignUp
         </button>
       </div>
