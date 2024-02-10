@@ -1,4 +1,6 @@
 import "../../src/chat.css";
+import {io} from "socket.io-client";
+import { useState,useEffect } from "react";
 // function Chat() {
 //   return (
 //     <div className="join-container">
@@ -47,8 +49,11 @@ import "../../src/chat.css";
 
     const [messages, setMessages] = useState([]);
     const [messageInput, setMessageInput] = useState('');
+    
+    const socket = io('http://localhost:3000');  
     useEffect(() => {
       // Listen for messages from the server
+      
       socket.on('chat message', (msg) => {
         setMessages((prevMessages) => [...prevMessages, msg]);
       });
@@ -65,8 +70,7 @@ import "../../src/chat.css";
     socket.emit('chat message', messageInput);
     setMessageInput('');
   };
-
-    const socket = io('http://localhost:3000');     
+   
     return (
       <div>
         <div className="chat-container">  
@@ -114,14 +118,7 @@ import "../../src/chat.css";
             </form>
           </div>
         </div>
-        <script
-          src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.11.2/qs.min.js"
-          integrity="sha512-vCegEXqPUYpZsTGz2lk0jaQ1psxtFeniVJACAXhMVxuoYa/N4nZkjoVFOxLwP7uGeQOoemiz7DQrIpRTj4IBPw=="
-          crossOrigin="anonymous"
-          referrerPolicy="no-referrer"
-        ></script>
-        <script src="/socket.io/socket.io.js"></script>
-        <script src="main.js"></script>
+        
       </div>
     );
   }
