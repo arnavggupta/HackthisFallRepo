@@ -23,10 +23,10 @@ const router = createBrowserRouter(
       <Route path="/login" element={<LoginPage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/mycommunities" element={<Mycommunities />} />
-      <Route path="/mycommunities/java" element={<CommunityPage />}>
-        <Route path="/mycommunities/java/chats" element={<Chat />} />
+      <Route path="/mycommunities/react" element={<CommunityPage />}>
+        <Route path="/mycommunities/react/chats" element={<Chat />} />
         <Route
-          path="/mycommunities/java/resources"
+          path="/mycommunities/react/resources"
           element={<div>Resources</div>}
         />
         <Route path="doubts" element={<div>Doubts</div>} />

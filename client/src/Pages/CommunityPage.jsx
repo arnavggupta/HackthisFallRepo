@@ -10,7 +10,7 @@ const CommunityPage = () => {
       <div className="flex justify-between">
         <p className="ml-10">Java</p>
         <div className="flex gap-12 mr-40">
-          <Link to="/mycommunities/java/chats">Chats</Link>
+          <Link to="/mycommunities/react/chats">Chats</Link>
           <Link>Resources</Link>
           <Link>Doubts</Link>
         </div>
