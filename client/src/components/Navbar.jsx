@@ -10,17 +10,17 @@ function Navbar() {
          
         </div>
         <div className="w-[78%] flex flex-row justify-start">
-          <Link className="hover:border-b m-5 tracking-wide font-semibold text-lg text-slate-200" to="/">
+          <Link className="hover:border-b m-3 mx-5 tracking-wide font-semibold text-lg text-slate-200" to="/">
               Home           
           </Link>
-          <Link className="hover:border-b m-5 tracking-wide font-semibold text-lg text-slate-200" to="/about">
+          <Link className="hover:border-b m-3 mx-5 tracking-wide font-semibold text-lg text-slate-200" to="/about">
                About Us
           </Link>
         </div>
       </div>
       <div className="w-[38%] flex justify-end">
-      <button className="tracking-wide font-semibold text-lg m-4 px-2 rounded-lg bg-slate-200">Login</button>
-      <button className="tracking-wide font-semibold text-lg m-4 px-2 rounded-lg bg-slate-200">SignUp</button>
+      <button className="tracking-wide font-semibold text-lg m-2 px-2 rounded-lg bg-slate-200">Login</button>
+      <button className="tracking-wide font-semibold text-lg m-2 px-2 rounded-lg bg-slate-200">SignUp</button>
       </div>
     </div>
   );
