@@ -6,29 +6,35 @@ function Navbar() {
   return (
     <div className="bg-blue-700 h-[12vh] shadow sticky z-50 top-0 flex justify-between w-screen">
       <div className="w-[60%] flex justify-between">
-        <div className="w-[20%]">
-         
-        </div>
+        <div className="w-[20%]"></div>
         <div className="w-[78%] flex flex-row justify-start">
-          <Link className="hover:border-b m-3 mx-5 tracking-wide font-semibold text-lg text-slate-200" to="/">
-              Home           
+          <Link
+            className="hover:border-b m-3 mx-5 tracking-wide font-semibold text-lg text-slate-200"
+            to="/"
+          >
+            Home
           </Link>
-          <Link className="hover:border-b m-3 mx-5 tracking-wide font-semibold text-lg text-slate-200" to="/about">
-               About Us
+          <Link
+            className="hover:border-b m-3 mx-5 tracking-wide font-semibold text-lg text-slate-200"
+            to="/about"
+          >
+            About Us
           </Link>
         </div>
       </div>
       <div className="w-[38%] flex justify-end">
-      <button className="tracking-wide font-semibold text-lg m-2 px-2 rounded-lg bg-slate-200">Login</button>
-      <button className="tracking-wide font-semibold text-lg m-2 px-2 rounded-lg bg-slate-200">SignUp</button>
+        <button className="tracking-wide font-semibold text-lg m-2 px-2 rounded-xl bg-slate-200">
+          Login
+        </button>
+        <button className="tracking-wide font-semibold text-lg m-2 px-2 rounded-xl bg-slate-200">
+          SignUp
+        </button>
       </div>
     </div>
   );
 }
 
 export default Navbar;
-
-
 
 // function Navbar() {
 //   const navigate = useNavigate();
