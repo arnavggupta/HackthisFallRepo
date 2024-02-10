@@ -29,6 +29,7 @@ const router = createBrowserRouter(
         <Route path="/mycommunities/react/chats" element={<Chat />} />
         <Route path="/mycommunities/react/resources" element={<Resources />} />
         <Route path="/mycommunities/react/doubts" element={<div>Doubts</div>} />
+       
       </Route>
     </Route>
   )

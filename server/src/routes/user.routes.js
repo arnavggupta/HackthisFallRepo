@@ -3,7 +3,7 @@ import { Router } from 'express';
 import user from "../models/user.model.js";
 import {setuser,getuser} from "../auth/authentication.js";
 import bcrypt from 'bcrypt';
-
+import cookieParser from 'cookie-parser';
 const router = Router();
 
 // Define your routes here
@@ -30,6 +30,12 @@ router.post("/register",async(req,res)=>{
 else{
     res.send("passwords are not matching");
 }
+
+
+
+
+
+
 
 
     }
@@ -67,6 +73,9 @@ router.post("/login",async(req,res,next)=>{
     }
 })
 
+router.get("/logout",(req,res)=>{
 
+    res.clearCookie(req.cookies.uid).redirect("/");
+})
 export default router;
 

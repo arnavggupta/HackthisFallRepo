@@ -11,7 +11,7 @@ function LandingNavbar() {
         className="rounded-full px-4 py-2"
         placeholder="Search Communities "
       />
-      <button className="border border-black rounded-full px-4 py-2 mr-4 bg-white text-black ">
+      <button  className="border border-black rounded-full px-4 py-2 mr-4 bg-white text-black ">
         Logout
       </button>
     </nav>
