@@ -1,8 +1,20 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import 'react-datepicker/dist/react-datepicker.css';
+import axios from 'axios';
 const SignUpPage = () => {
   const [date, setDate] = useState(new Date());
+  const [username,setUsername]=useState('');
+  const [password,setPassword]=useState('');
+  const[email,setEmail]=useState('');
+  const[cpassword,setCpassword]=useState('');
+  const sendToSignin=async()=>{
+    const d={username:username, email:email,confirm_password:cpassword,dob:date,password:password};
+    console.log(d);
+    const {data}=await axios.post('http://localhost:3000/api/register',d);
+    console.log(data);
+
+  }
 
   return (
     <div
@@ -14,7 +26,7 @@ const SignUpPage = () => {
           Sign Up
         </h2>
 
-        <form className="space-y-4">
+        
           <div className="mb-4">
             <label
               htmlFor="username"
@@ -26,6 +38,8 @@ const SignUpPage = () => {
               type="text"
               id="username"
               name="username"
+              value={username}
+              onChange={e=>{setUsername(e.target.value)}}
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
             />
           </div>
@@ -41,6 +55,8 @@ const SignUpPage = () => {
               type="email"
               id="email"
               name="email"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
             />
           </div>
@@ -54,8 +70,8 @@ const SignUpPage = () => {
             </label>
             <input
               type="password"
-              id="password"
-              name="password"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
             />
           </div>
@@ -71,6 +87,8 @@ const SignUpPage = () => {
               type="password"
               id="confirmPassword"
               name="confirmPassword"
+              value={cpassword}
+              onChange={e =>setCpassword(e.target.value)}
               className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring focus:border-blue-300"
             />
           </div>
@@ -82,23 +100,22 @@ const SignUpPage = () => {
             >
              Date
             </label>
-         < DatePicker
+         <DatePicker
           onChange={(date) => setDate(date)}
           selected={date}
           dateFormat="dd/MM/yy"
           id="date"
           className="w-full px-3 py-2 border rounded-md"
-          calendarPlacement="right"
-/>
+          calendarPlacement="right"/>
     </div>
 
           <button
-            type="submit"
             className="w-full bg-[#1976D2] text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+            onClick={sendToSignin}
           >
             Sign Up
           </button>
-        </form>
+        
       </div>
     </div>
   );

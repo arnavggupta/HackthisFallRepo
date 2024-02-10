@@ -1,10 +1,17 @@
 import React,{useState} from 'react';
-
-
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
 const LoginPage = () => {
 
   const [userName,setUserName] = useState("");
   const [password,setpassword] = useState("");
+  const [cookies, setCookie] = useCookies(['uid']);
+
+  const Login=async()=>{
+    const {data}=await axios.post('http://localhost:3000/api/login',{login_username:userName,login_password:password});
+    console.log(data);
+    setCookie('uid',data.token, { path: "/" });
+  }
   return (
     <div className="min-h-screen flex items-center justify-center bg-cover bg-center" style={{ backgroundImage: "url('your-background-image.jpg')" }}>
       <div className="max-w-md w-full p-8 bg-white bg-opacity-80 border border-[#1976D2] rounded-md shadow-md">
@@ -12,7 +19,7 @@ const LoginPage = () => {
           Welcome Back!
         </h2>
 
-        <form className="space-y-4">
+        
           <div className="mb-4">
             <label
               htmlFor="username"
@@ -48,12 +55,11 @@ const LoginPage = () => {
           </div>
 
           <button
-            type="submit"
-            className="w-full bg-[#1976D2] text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300"
+            className="w-full bg-[#1976D2] text-white py-2 rounded-md hover:bg-blue-600 focus:outline-none focus:ring focus:border-blue-300" onClick={Login}
           >
             Login
           </button>
-        </form>
+        
 
         <div className="mt-4 text-center">
           <p className="text-gray-600">
