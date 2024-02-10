@@ -7,15 +7,12 @@ const CommunityPage = () => {
   return (
     <>
       <LandingNavbar />
-      <div className="flex justify-between text-2xl tracking-wide mt-4">
-        <p className="ml-10 flex gap-1 items-center">
-          <img className="h-10 w-10" src={reactimg} alt="Reloaded" />
-          <span>ReactJs</span>
-        </p>
-        <div className="flex gap-12 mr-40">
+      <div className="flex justify-between">
+        <p className="ml-10 font-bold tracking-wide text-2xl my-2 underline">Java</p>
+        <div className="flex gap-12 mr-40 my-3">
           <Link to="/mycommunities/react/chats">Chats</Link>
           <Link to="/mycommunities/react/resources">Resources</Link>
-          <Link>Doubts</Link>
+          <Link to="/mycommunities/react/doubts">Doubts</Link>
         </div>
       </div>
       <div className="h-[100dvh]">

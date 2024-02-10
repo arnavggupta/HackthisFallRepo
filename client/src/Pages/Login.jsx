@@ -8,6 +8,7 @@ const LoginPage = () => {
   const [cookies, setCookie] = useCookies(["uid"]);
 
   const Login = async () => {
+    console.log(userName + password);
     const { data } = await axios.post("http://localhost:3000/api/login", {
       login_username: userName,
       login_password: password,

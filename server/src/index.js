@@ -3,6 +3,7 @@ import {createServer} from 'http';
 import express from "express";
 import cors from 'cors'
 import dbConnection from "./db/conn.js";
+import dotenv from 'dotenv';
 
 import user from "./models/user.model.js";
 
