@@ -3,6 +3,7 @@ import {Doubt} from '../models/doubt.model.js';
 import { ApiError } from '../utils/ApiError.js';
 import { Community } from '../models/community.model.js';
 import userModel from "../models/user.model.js";
+import { io } from '../index.js';
 
 const addDoubt=async(req,res,next)=>{
     try{
@@ -85,6 +86,18 @@ const getAllCommunties=async(req,res,next)=>{
     
   }catch(error) {
     next(error);
+  }
+}
+
+const chatInCommunity=async(req,res,next)=>{
+  try{
+    io.on("connection",(socket)=>{
+      socket.on('community-chat',()=>{
+        
+      })
+    })
+  }catch(error){
+    
   }
 }
 

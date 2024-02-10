@@ -1,7 +1,7 @@
 import {Server} from 'socket.io';
 import {createServer} from 'http';
 import express from "express";
-
+import cors from 'cors'
 import dbConnection from "./db/conn.js";
 
 import user from "./models/user.model.js";
@@ -23,9 +23,21 @@ app.use(cors({
   credentials:true
 }))
 
+io.on('connection',(socket)=>{
+
+  socket.on('join-community',(communityId)=>{
+    socket.join(communityId);
+    console.log("User Joined Room: " + communityId);
+  })
+  socket.on('chat',(message,communityId)=>{
+    io.to(communityId).emit(msg);
+  })
+
+})
 const port = process.env.PORT || 3000;
-app.use("/api",router)
 app.use(express.json());
+app.use("/api",router)
+
 app.use(cookieParser());
 app.use(express.urlencoded({extended:true}));
 app.use(express.static('public'));
@@ -41,3 +53,4 @@ dbConnection.once("open", () => {
 server.listen(port, () => {
   console.log(`Server is started at ${port}`);
 });
+export {io};
