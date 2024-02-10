@@ -1,12 +1,30 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import axios from 'axios';
+import useStore from '../store/store.js';
+import Ques from "../components/Ques.jsx";
+
 function Doubts() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isSolnModalOpen,setIsSolnModalOpen]=useState(false);
   const [questionImage, setQuestionImage] = useState(null);
   const [solnImage, setSolnImage] = useState(null);
-  const[question,setQuestion]=useState('');
-  const[solution,setSolution]=useState('');
+  const [question,setQuestion]=useState('');
+  const [solution,setSolution]=useState('');
+  const user=useStore((state)=>state.user_id);
+  const [data,setData]=useState([]); 
+
+  const questions=async()=>{
+    const {data}=await axios.get("http://localhost:3000/api/getQues");
+    console.log(data);
+    setData(data.data);
+  }
+  useEffect(()=>{
+    questions();
+  },[]);
+  useEffect(()=>{
+    questions();
+  },[isModalOpen]);
+  
 
   const openModal = () => {
     setIsModalOpen(true);
@@ -36,7 +54,7 @@ function Doubts() {
     // Handle the logic for adding the solution here
     // This can include making an API call, updating state, etc.
     // For now, let's just close the modal
-    const {data}=await axios.post("http://localhost:3000/api/addSoln",{SolnImg: solnImage, content: solution});
+    const {data}=await axios.post("http://localhost:3000/api/addSoln",{SolnImg: solnImage, content: solution,user_id:user});
     console.log(data)
     closeSolnModal();
   };
@@ -49,7 +67,7 @@ function Doubts() {
     formData.append('doubtImg', questionImage);
             formData.append('content', question);
             
-    const {data}=await axios.post("http://localhost:3000/api/adddoubt",{doubtImg: questionImage, content: question});
+    const {data}=await axios.post("http://localhost:3000/api/adddoubt",{doubtImg: questionImage, content: question,user_id:user});
     console.log(data)
     closeModal();
   };
@@ -58,7 +76,7 @@ function Doubts() {
     <div className="h-screen w-screen flex flex-col">
       <div className="h-5/6 w-screen bg-slate-400 flex">
         <div className="w-4/6 h-full overflow-y-auto m-2">
-        <div className="bg-slate-100 w-5/6 inline-block max-w-5/6 rounded-lg m-2">
+            <div className="bg-slate-100 w-5/6 inline-block max-w-5/6 rounded-lg m-2">
             <div className="text-lg font-bold p-2 tracking-wide">
                     Arnav
             </div>
@@ -68,18 +86,8 @@ function Doubts() {
             <div className="flex justify-end p-1 px-2">
                 <button className=" p-2 rounded-lg bg-red-800 text-slate-200 font-semibold" onClick={openSolnModal}>Add Solution</button>
             </div>    
-        </div>
-        <div className="bg-slate-100 w-5/6 inline-block max-w-5/6 rounded-lg m-2">
-            <div className="text-lg font-bold p-2 tracking-wide">
-                Soham
             </div>
-            <div className="p-3 text-slate-700 font-semibold">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis, ad non commodi deleniti earum possimus voluptatibus eaque molestiae aspernatur aut dolor adipisci ipsum!
-            </div>
-            <div className="flex justify-end p-1 px-2">
-                <button className=" p-2 rounded-lg bg-red-800 text-slate-200 font-semibold" onClick={openSolnModal}>Add Solution</button>
-            </div>    
-        </div>
+            {data.length!=0?data.map(item=>{return(<Ques key={item._id} data={item} func={openSolnModal}/>)}) :"No Data Found"}
 
           {/* Add Solution Modal */}
           {isModalOpen && (

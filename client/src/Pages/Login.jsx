@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
-
+import useStore from '../store/store.js';
 const LoginPage = () => {
   const [userName, setUserName] = useState("");
   const [password, setpassword] = useState("");
+  const saveuserId=useStore((state)=>state.setUserId);
   const [cookies, setCookie] = useCookies(["uid"]);
 
   const Login = async () => {
@@ -14,6 +15,7 @@ const LoginPage = () => {
       login_password: password,
     });
     console.log(data);
+    saveuserId(data.data._id)
     setCookie("uid", data.token, { path: "/" });
   };
   return (

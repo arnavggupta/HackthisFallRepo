@@ -35,5 +35,5 @@ userschema.pre("save", async function (next) {
 
 
 
-export default mongoose.model("user",userschema);
+export default mongoose.model("User",userschema);
 
