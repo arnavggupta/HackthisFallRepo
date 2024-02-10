@@ -17,6 +17,7 @@ import CommunityPage from "./Pages/CommunityPage.jsx";
 import Mycommunities from "./Pages/Mycommunities.jsx";
 import Chat from "./subpage/Chats.jsx";
 import Resources from "./subpage/Resources.jsx";
+import Doubts from "./subpage/Doubts.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,7 +29,7 @@ const router = createBrowserRouter(
       <Route path="/mycommunities/react" element={<CommunityPage />}>
         <Route path="/mycommunities/react/chats" element={<Chat />} />
         <Route path="/mycommunities/react/resources" element={<Resources />} />
-        <Route path="/mycommunities/react/doubts" element={<div>Doubts</div>} />
+        <Route path="/mycommunities/react/doubts" element={<Doubts/>} />
       </Route>
     </Route>
   )

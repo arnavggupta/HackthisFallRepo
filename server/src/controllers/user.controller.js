@@ -4,14 +4,25 @@ import { ApiError } from '../utils/ApiError.js';
 import { Community } from '../models/community.model.js';
 import userModel from "../models/user.model.js";
 import { io } from '../index.js';
-
+// import { uploadOnCloudinary } from '../utils/cloudinary.js';
+// uploadOnCloudinary
 const addDoubt=async(req,res,next)=>{
     try{
         const {content,user_id}=req.body;
+        console.log(req);
+        const doubtImage=req.file?.path;
+        let img;
+        if(doubtImage){
+            img=await uploadOnCloudinary(doubtImage);
+            if(!img){
+                throw new ApiError(400,"Image file is required");
+            }
+        }
         const current_date=new Date().toISOString();
 
         const doubt=await Doubt.create({
             content:content,
+            doubtImg:img,
             owner:user_id,
             publishingDate:current_date
 
@@ -36,10 +47,20 @@ const addSolution=async(req,res,next)=>{
     try{
         const {content,user_id,ques_id}=req.body;
         const current_date=new Date().toISOString();
+        console.log(req.file?.path);
+        const solnImage=req.file?.path;
+        let img;
+        if(solnImage){
+            img=await uploadOnCloudinary(solnImage);
+            if(!img){
+                throw new ApiError(400,"Image file is required");
+            }
+        }
         const soln=await Soln.create({
             question:ques_id,
             owner:user_id,
             content:content,
+            solnImg:solnImage,
             publishingDate:current_date
         });
         const ques=await Doubt.findById(ques_id);
@@ -75,6 +96,24 @@ const joinCommunity=async(req,res,next) =>{
       next(error);
     }
 }
+
+const createCommunity=async(req,res,next)=>{
+  try{
+    const {name,description,user_id,}=req.body;
+    const communtity=await Community.create({
+      name:name,
+      description:description,
+      creator:user_id
+    })
+    res.status(201).json({
+      data:communtity
+    })
+
+  }catch(error){
+    next(error);
+  }
+}
+
 const getAllCommunties=async(req,res,next)=>{
   try{
     const comms=await Community.find()
@@ -140,6 +179,20 @@ const getQues = async (req, res, next) => {
       {
         $lookup: {
           from: 'Soln',
+          localField: 'solutions.solnImg',
+          foreignField: '_id',
+          as: 'solnImg',
+        },
+      },
+      {
+        $unwind: {
+          path: '$solnImg',
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: 'Soln',
           localField: 'solutions.downvotes',
           foreignField: '_id',
           as: 'downvotes',
@@ -155,25 +208,28 @@ const getQues = async (req, res, next) => {
         $addFields: {
           'solutions.upvotes': '$upvotes',
           'solutions.downvotes': '$downvotes',
+          'solutions.solnImg': '$solnImg',
         },
       },
       {
         $project: {
           content: 1,
+          doubtImg:1,
           solutions: {
             _id: 1,
             owner: 1,
             content: 1,
             upvotes: 1,
             downvotes: 1,
+            solnImg:1,
             publishingDate: 1,
           },
           owner: {
             _id: 1,
             username: 1,
           },
-          upvotes: 0,
-          downvotes: 0,
+          upvotes: 1,
+          downvotes: 1,
         },
       },
     ]);
@@ -184,4 +240,4 @@ const getQues = async (req, res, next) => {
     });
   };
 
-export {addDoubt,addSolution,getQues,joinCommunity,getAllCommunties};
+export {addDoubt,addSolution,getQues,joinCommunity,getAllCommunties,createCommunity,chatInCommunity};

@@ -5,6 +5,9 @@ const solnSchema=Schema({
         type:Schema.Types.ObjectId,
         ref:'Doubt'
     },
+    solnImg:{
+        type:String
+    },
     owner:{
         type:Schema.Types.ObjectId,
         ref:'user'
