@@ -6,7 +6,7 @@ function Home() {
     <>
       <Navbar />
 
-      <div className="bg-blue-700 min-h-screen">
+      <div className="bg-blue-700 min-h-screen m-0 p-0">
         <div className="relative bg-blue-700">
           <div className=" bg-blue-700 h-screen w-screen relative flex flex-col justify-center">
             <img
