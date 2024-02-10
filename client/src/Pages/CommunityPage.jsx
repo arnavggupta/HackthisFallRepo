@@ -9,7 +9,7 @@ const CommunityPage = () => {
       <LandingNavbar />
       <div className="flex justify-between">
         <p className="ml-10 font-bold tracking-wide text-2xl my-2 underline">Java</p>
-        <div className="flex gap-12 mr-40">
+        <div className="flex gap-12 mr-40 my-3">
           <Link to="/mycommunities/react/chats">Chats</Link>
           <Link to="/mycommunities/react/resources">Resources</Link>
           <Link>Doubts</Link>
