@@ -43,64 +43,89 @@
 
 // export default Chat;
 
-function Chats() {
-  return (
-    <div>
-      <div className="chat-container">
-        <header className="chat-header">
-          <h1>
-            <i className="fas fa-smile"></i> ChatWhat
-          </h1>
-          <a href="index.html" className="btn">
-            Leave Room
-          </a>
-        </header>
-        <main className="chat-main">
-          <div className="chat-sidebar">
-            <h3 className=" text-black">
-              <i className="fas fa-comments"></i> Room Name:
-            </h3>
-            <h2 className="text-blue-600" id="room-name">
-              JavaScript
-            </h2>
-            <h3 className="text-blue-600">
-              <i className="fas fa-users"></i> Users
-            </h3>
-            <ul id="users">
-              {/* <!-- <li>Arnav</li>
-          <li>Amon</li> 
-          <li>Kaustubh</li>
-          <li>Hitarth</li>
-           --> */}
-            </ul>
-          </div>
-          <div className="chat-messages"></div>
-        </main>
-        <div className="chat-form-container">
-          <form id="chat-form">
-            <input
-              id="msg"
-              type="text"
-              placeholder="Enter Message"
-              required
-              autoComplete="off"
-            />
-            <button className="btn">
-              <i className="fas fa-paper-plane"></i> Send
-            </button>
-          </form>
-        </div>
-      </div>
-      <script
-        src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.11.2/qs.min.js"
-        integrity="sha512-vCegEXqPUYpZsTGz2lk0jaQ1psxtFeniVJACAXhMVxuoYa/N4nZkjoVFOxLwP7uGeQOoemiz7DQrIpRTj4IBPw=="
-        crossOrigin="anonymous"
-        referrerPolicy="no-referrer"
-      ></script>
-      <script src="/socket.io/socket.io.js"></script>
-      <script src="main.js"></script>
-    </div>
-  );
-}
+  function Chats() {
 
-export default Chats;
+    const [messages, setMessages] = useState([]);
+    const [messageInput, setMessageInput] = useState('');
+    useEffect(() => {
+      // Listen for messages from the server
+      socket.on('chat message', (msg) => {
+        setMessages((prevMessages) => [...prevMessages, msg]);
+      });
+  
+      return () => {
+        // Clean up the socket connection when the component unmounts
+        socket.disconnect();
+      };
+    }, []);
+    
+  const sendMessage = (e) => {
+    e.preventDefault();
+    // Send the message to the server
+    socket.emit('chat message', messageInput);
+    setMessageInput('');
+  };
+
+    const socket = io('http://localhost:3000');     
+    return (
+      <div>
+        <div className="chat-container">  
+          <header className="chat-header">
+            <h1>
+              <i className="fas fa-smile"></i> ChatWhat
+            </h1>
+            <a href="index.html" className="btn">
+              Leave Room
+            </a>
+          </header>
+          <main className="chat-main">
+            <div className="chat-sidebar">
+              <h3 className=" text-black">
+                <i className="fas fa-comments"></i> Room Name:
+              </h3>
+              <h2 className="text-blue-600" id="room-name">
+                JavaScript
+              </h2>
+              <h3 className="text-blue-600">
+                <i className="fas fa-users"></i> Users
+              </h3>
+              <ul id="users">
+                {/* <!-- <li>Arnav</li>
+            <li>Amon</li> 
+            <li>Kaustubh</li>
+            <li>Hitarth</li>
+            --> */}
+              </ul>
+            </div>
+            <div className="chat-messages"></div>
+          </main>
+          <div className="chat-form-container">
+            <form id="chat-form">
+              <input
+                id="msg"
+                type="text"
+                placeholder="Enter Message"
+                required
+                autoComplete="off"
+              />
+              <button className="btn">
+                <i className="fas fa-paper-plane"></i> Send
+              </button>
+            </form>
+          </div>
+        </div>
+        <script
+          src="https://cdnjs.cloudflare.com/ajax/libs/qs/6.11.2/qs.min.js"
+          integrity="sha512-vCegEXqPUYpZsTGz2lk0jaQ1psxtFeniVJACAXhMVxuoYa/N4nZkjoVFOxLwP7uGeQOoemiz7DQrIpRTj4IBPw=="
+          crossOrigin="anonymous"
+          referrerPolicy="no-referrer"
+        ></script>
+        <script src="/socket.io/socket.io.js"></script>
+        <script src="main.js"></script>
+      </div>
+    );
+  }
+
+  export default Chats;
+
+  
