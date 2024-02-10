@@ -1,7 +1,8 @@
 import {Soln} from '../models/solution.model.js';
 import {Doubt} from '../models/doubt.model.js';
 import { ApiError } from '../utils/ApiError.js';
-
+import { Community } from '../models/community.model.js';
+import userModel from "../models/user.model.js";
 
 const addDoubt=async(req,res,next)=>{
     try{
@@ -54,6 +55,37 @@ const addSolution=async(req,res,next)=>{
         next(error);
     }
 
+}
+
+const joinCommunity=async(req,res,next) =>{
+    try{
+      const {communityId,user_id}=req.body;
+      const community=await Community.findById(communityId); 
+      const  user = await userModel.findById(user_id);
+      user.communities.push(communityId);
+      await user.save();
+      community.members.push(user_id);
+      await community.save();
+      res.status(200).json({
+        status:200,
+        data:'community joined succesfully'
+      });  
+    }catch(error){
+      next(error);
+    }
+}
+const getAllCommunties=async(req,res,next)=>{
+  try{
+    const comms=await Community.find()
+                              .populate('owner')
+                              .sort('-createdAt');
+    res.status(200).json({
+      data:comms,
+    })
+    
+  }catch(error) {
+    next(error);
+  }
 }
 
 
@@ -139,4 +171,4 @@ const getQues = async (req, res, next) => {
     });
   };
 
-export {addDoubt,addSolution,getQues};
+export {addDoubt,addSolution,getQues,joinCommunity,getAllCommunties};

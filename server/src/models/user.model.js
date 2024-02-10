@@ -23,7 +23,8 @@ const userschema = new mongoose .Schema(
     confirm_password:{
         type:String,
         required:true
-    }
+    },
+    communities:[{type:mongoose.Types.ObjectId,ref:'Community'}],
 });
 
 
