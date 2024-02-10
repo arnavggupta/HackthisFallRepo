@@ -11,7 +11,7 @@ const CommunityPage = () => {
         <p className="ml-10 font-bold tracking-wide text-2xl my-2 underline">Java</p>
         <div className="flex gap-12 mr-40">
           <Link to="/mycommunities/react/chats">Chats</Link>
-          <Link>Resources</Link>
+          <Link to="/mycommunities/react/resources">Resources</Link>
           <Link>Doubts</Link>
         </div>
       </div>
