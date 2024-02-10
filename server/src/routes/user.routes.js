@@ -13,10 +13,10 @@ const router = Router();
 // Define your routes here
 router.post('/adddoubt',addDoubt);
 router.post('/addSoln',upload.single('SolnImg'),addSolution);
-router.post('/getCommunties',getAllCommunties);
+router.get('/getCommunties',getAllCommunties);
 router.post('/joincommunity',joinCommunity);
 router.post('/createCommunity',createCommunity);
-router.post('/getQues',getQues);
+router.get('/getQues',getQues);
 
 router.post("/register",async(req,res)=>{
     try{ 
@@ -64,6 +64,7 @@ router.post("/login",async(req,res,next)=>{
     res.cookie("uid",token);
     return res.status(200).json({
         message:"you have logged in successfully",
+        data:database,
         token : token
     });
 
