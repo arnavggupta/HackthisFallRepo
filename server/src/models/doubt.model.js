@@ -40,3 +40,4 @@ const doubtSchema=Schema({
 })
 
 export const Doubt=mongoose.model('Doubt',doubtSchema);
+

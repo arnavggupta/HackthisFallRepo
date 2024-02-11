@@ -41,7 +41,7 @@ const addDoubt=async(req,res,next)=>{
         next(error);
     }
 
-}
+} 
 
 const addSolution=async(req,res,next)=>{
     try{
