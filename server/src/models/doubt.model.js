@@ -5,6 +5,9 @@ const doubtSchema=Schema({
         type: String,
         required: true
     },
+    doubtImg:{
+        type:String,
+    },
     owner: {
         type: Schema.Types.ObjectId,
         ref: "user"

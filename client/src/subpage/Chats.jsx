@@ -1,5 +1,7 @@
 import "../../src/chat.css";
 
+import { useState,useEffect } from "react";
+
 function Chats() {
   return (
     <div className="h-[80%] w-screen">
@@ -14,15 +16,14 @@ function Chats() {
           </div>
       </div>
       <div className="flex justify-center">
-        <input type="text" className="w-[80%] p-2 rounded-lg"/>
-        <button className="bg-sky-700 text-slate-200 p-1 mx-1 rounded-lg font-semibold">Send →</button>
+        <input type="text" className="w-[80%] p-2 rounded-lg border-slate-500 border-2"/>
+        <button className="bg-sky-700 text-slate-200 p-1 mx-1 rounded-lg font-semibold px-2">Send →</button>
       </div>
     </div>
   );
 }
 
     
-  
 
   export default Chats;
 

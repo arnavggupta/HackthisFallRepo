@@ -3,16 +3,26 @@ import { Router } from 'express';
 import user from "../models/user.model.js";
 import {setuser,getuser} from "../auth/authentication.js";
 import bcrypt from 'bcrypt';
+import { addDoubt, addSolution, createCommunity, getAllCommunties, getQues, joinCommunity } from '../controllers/user.controller.js';
+import { upload } from '../middlewares/multer.middleware.js';
 import cookieParser from 'cookie-parser';
+
+
 const router = Router();
 
 // Define your routes here
+router.post('/adddoubt',addDoubt);
+router.post('/addSoln',upload.single('SolnImg'),addSolution);
+router.post('/getCommunties',getAllCommunties);
+router.post('/joincommunity',joinCommunity);
+router.post('/createCommunity',createCommunity);
+router.post('/getQues',getQues);
 
 router.post("/register",async(req,res)=>{
-    try{
+    try{ 
         console.log(req.body);
-    const passwords= req.body.password;
-    const cpassword= req.body.confirm_password;
+        const passwords= req.body.password;
+        const cpassword= req.body.confirm_password;
 
     if(passwords===cpassword){
     const registername=await user.create({
@@ -46,6 +56,7 @@ else{
 
 router.post("/login",async(req,res,next)=>{
     try{
+        console.log(req.body);
         const name=req.body.login_username;
         const password=req.body.login_password;
 
